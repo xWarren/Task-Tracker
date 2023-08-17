@@ -44,7 +44,7 @@ class DashboardBody extends StatelessWidget {
               ),
             ),
           ),
-          const SizedBox(height: 50),
+          const SizedBox(height: 100),
           Container(
             width: Get.width,
             height: 50,
@@ -64,7 +64,7 @@ class DashboardBody extends StatelessWidget {
                   ),
                 ),
                 child: const Text(
-                  "Sign In",
+                  "Get Started",
                   style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
@@ -72,31 +72,6 @@ class DashboardBody extends StatelessWidget {
                   ),
                 )),
           ),
-          const SizedBox(height: 70),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Text(
-                "Don't have an account?",
-                style: TextStyle(
-                  fontSize: 15,
-                  color: colors.primaryColor,
-                ),
-              ),
-              const SizedBox(width: 5),
-              GestureDetector(
-                onTap: () {},
-                child: const Text(
-                  "Sign Up",
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: colors.tertiaryColor,
-                  ),
-                ),
-              )
-            ],
-          )
         ],
       ),
     );

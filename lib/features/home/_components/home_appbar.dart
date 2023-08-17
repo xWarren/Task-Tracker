@@ -46,22 +46,5 @@ class HomeAppBar extends AppBar {
                   child: Image.asset(Assets.taskLogo)),
             )
           ],
-          bottom: const PreferredSize(
-              preferredSize: Size.fromHeight(80),
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20),
-                child: Row(
-                  children: [
-                    Text(
-                      "Today",
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w700,
-                        color: colors.primaryColor,
-                      ),
-                    ),
-                  ],
-                ),
-              )),
         );
 }
