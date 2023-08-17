@@ -20,7 +20,9 @@ class MyApp extends StatelessWidget {
           scaffoldBackgroundColor: Colors.white,
           appBarTheme: const AppBarTheme(
             backgroundColor: Colors.white,
-          )),
+          ),
+          bottomSheetTheme:
+              const BottomSheetThemeData(backgroundColor: Colors.white)),
       initialRoute: Routes.splash,
       getPages: Pages.routePage,
     );
