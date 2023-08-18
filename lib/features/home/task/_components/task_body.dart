@@ -97,8 +97,8 @@ class TaskBody extends GetView<TaskController> {
             "Color",
             style: TextStyle(
               fontSize: 15,
-              fontWeight: FontWeight.w500,
-              color: colors.primaryColor,
+              fontWeight: FontWeight.w700,
+              color: colors.pendingColor,
             ),
           ),
           Wrap(
@@ -175,8 +175,8 @@ class TaskBody extends GetView<TaskController> {
       "Repeat",
       style: TextStyle(
         fontSize: 15,
-        fontWeight: FontWeight.w600,
-        color: colors.primaryColor,
+        fontWeight: FontWeight.w700,
+        color: colors.pendingColor,
       ),
     );
   }
@@ -215,8 +215,8 @@ class TaskBody extends GetView<TaskController> {
       "Remind",
       style: TextStyle(
         fontSize: 15,
-        fontWeight: FontWeight.w600,
-        color: colors.primaryColor,
+        fontWeight: FontWeight.w700,
+        color: colors.pendingColor,
       ),
     );
   }
@@ -240,8 +240,8 @@ class TaskBody extends GetView<TaskController> {
             "End Time",
             style: TextStyle(
               fontSize: 15,
-              fontWeight: FontWeight.w600,
-              color: colors.primaryColor,
+              fontWeight: FontWeight.w700,
+              color: colors.pendingColor,
             ),
           ),
           const SizedBox(height: 5),
@@ -249,7 +249,7 @@ class TaskBody extends GetView<TaskController> {
             height: 50,
             child: TextFormField(
               controller: controller.endTimeController,
-              textInputAction: TextInputAction.next,
+              textInputAction: TextInputAction.done,
               decoration: InputDecoration(
                   hintText: controller.endTime,
                   suffixIcon: const Icon(Icons.watch),
@@ -290,8 +290,8 @@ class TaskBody extends GetView<TaskController> {
             "Start Time",
             style: TextStyle(
               fontSize: 15,
-              fontWeight: FontWeight.w600,
-              color: colors.primaryColor,
+              fontWeight: FontWeight.w700,
+              color: colors.pendingColor,
             ),
           ),
           const SizedBox(height: 5),
@@ -299,7 +299,7 @@ class TaskBody extends GetView<TaskController> {
             height: 50,
             child: TextFormField(
               controller: controller.startTimeController,
-              textInputAction: TextInputAction.next,
+              textInputAction: TextInputAction.done,
               decoration: InputDecoration(
                   hintText: controller.startTime,
                   suffixIcon: const Icon(Icons.watch),
@@ -336,7 +336,7 @@ class TaskBody extends GetView<TaskController> {
       height: 50,
       child: TextFormField(
         controller: controller.dateController,
-        textInputAction: TextInputAction.next,
+        textInputAction: TextInputAction.done,
         decoration: InputDecoration(
           hintText: controller.date,
           suffixIcon: const Icon(Icons.calendar_today),
@@ -378,8 +378,8 @@ class TaskBody extends GetView<TaskController> {
       "Date",
       style: TextStyle(
         fontSize: 15,
-        fontWeight: FontWeight.w600,
-        color: colors.primaryColor,
+        fontWeight: FontWeight.w700,
+        color: colors.pendingColor,
       ),
     );
   }
@@ -389,7 +389,7 @@ class TaskBody extends GetView<TaskController> {
       height: 150,
       child: TextFormField(
         controller: controller.noteController,
-        textInputAction: TextInputAction.next,
+        textInputAction: TextInputAction.done,
         maxLength: controller.length.value,
         maxLines: 5,
         decoration: InputDecoration(
@@ -415,8 +415,8 @@ class TaskBody extends GetView<TaskController> {
       "Note",
       style: TextStyle(
         fontSize: 15,
-        fontWeight: FontWeight.w600,
-        color: colors.primaryColor,
+        fontWeight: FontWeight.w700,
+        color: colors.pendingColor,
       ),
     );
   }
@@ -449,8 +449,8 @@ class TaskBody extends GetView<TaskController> {
       "Title",
       style: TextStyle(
         fontSize: 15,
-        fontWeight: FontWeight.w600,
-        color: colors.primaryColor,
+        fontWeight: FontWeight.w700,
+        color: colors.pendingColor,
       ),
     );
   }

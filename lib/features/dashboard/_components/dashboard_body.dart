@@ -28,8 +28,8 @@ class DashboardBody extends StatelessWidget {
             "Easy Task Creation",
             style: TextStyle(
               fontSize: 25,
-              fontWeight: FontWeight.w500,
-              color: colors.primaryColor,
+              fontWeight: FontWeight.w600,
+              color: colors.pendingColor,
             ),
           ),
           const SizedBox(height: 20),
@@ -67,7 +67,7 @@ class DashboardBody extends StatelessWidget {
                   "Get Started",
                   style: TextStyle(
                     fontSize: 18,
-                    fontWeight: FontWeight.bold,
+                    fontWeight: FontWeight.w800,
                     color: colors.lightColor,
                   ),
                 )),

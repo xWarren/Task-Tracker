@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:task_app/core/data/models/task_model.dart';
-import 'package:task_app/core/resources/colors.dart';
+
+import '../../../core/data/database/db_helper.dart';
+import '../../../core/data/models/task_model.dart';
+import '../../../core/resources/colors.dart' as colors;
 
 class TaskController extends GetxController {
   RxInt length = 150.obs;
@@ -26,6 +28,8 @@ class TaskController extends GetxController {
   RxInt remindDefault = 5.obs;
   var repeatDefault = "None";
 
+  var taskList = <TaskModel>[].obs;
+
   List<int> remind = [
     5,
     10,
@@ -41,24 +45,41 @@ class TaskController extends GetxController {
 
   @override
   void onReady() {
+    getTasks();
     super.onReady();
   }
 
-  // Future<void> addTask({TaskModel? task}) {
-  //   return null;
-  // }
+  void getBack() {
+    titleController.clear();
+    noteController.clear();
+    dateController.clear();
+    startTimeController.clear();
+    endTimeController.clear();
+    repeatController.clear();
+    selectedColor.value;
+    Get.back();
+  }
+
+  Future<int> addTask({TaskModel? taskModel}) async {
+    return await DBHelper.insert(taskModel);
+  }
+
+  void getTasks() async {
+    List<Map<String, dynamic>> tasks = await DBHelper.query();
+    taskList.assignAll(tasks.map((data) => TaskModel.fromJson(data)).toList());
+  }
 
   void validateTitle() {
     if (titleController.text.isNotEmpty && noteController.text.isNotEmpty) {
       putTaskToDB();
-      Get.back();
+      getBack();
     } else if (titleController.text.isEmpty || noteController.text.isEmpty) {
       Get.snackbar(
         "Message:",
         "All fields are required!",
         snackPosition: SnackPosition.TOP,
-        backgroundColor: primaryColor,
-        colorText: lightColor,
+        backgroundColor: colors.primaryColor,
+        colorText: colors.lightColor,
         icon: const Icon(
           Icons.warning,
           color: Colors.red,
@@ -67,8 +88,9 @@ class TaskController extends GetxController {
     }
   }
 
-  void putTaskToDB() {
-    TaskModel(
+  void putTaskToDB() async {
+    int value = await addTask(
+        taskModel: TaskModel(
       title: titleController.text,
       note: noteController.text,
       date: DateFormat.yMd().format(selectedDate),
@@ -77,6 +99,11 @@ class TaskController extends GetxController {
       remind: remindDefault.value,
       repeat: repeatController.text,
       isCompleted: 0,
-    );
+    ));
+
+    // ignore: avoid_print
+    print("My id is $value");
   }
+
+  void delete() {}
 }
