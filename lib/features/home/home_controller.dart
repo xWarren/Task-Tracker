@@ -1,3 +1,7 @@
 import 'package:get/get.dart';
 
-class HomeController extends GetxController {}
+import 'task/task_controller.dart';
+
+class HomeController extends GetxController {
+  TaskController taskController = Get.put(TaskController());
+}

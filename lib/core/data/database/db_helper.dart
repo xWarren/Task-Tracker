@@ -1,5 +1,7 @@
 import 'package:sqflite/sqflite.dart';
 
+import '../models/task_model.dart';
+
 class DBHelper {
   static Database? db;
   static const int version = 1;
@@ -28,5 +30,17 @@ class DBHelper {
       // ignore: avoid_print
       print(e);
     }
+  }
+
+  static Future<int> insert(TaskModel? taskModel) async {
+    // ignore: avoid_print
+    print("insert function called");
+    return await db?.insert(tableName, taskModel!.toJson()) ?? 1;
+  }
+
+  static Future<List<Map<String, dynamic>>> query() async {
+    // ignore: avoid_print
+    print("query function called");
+    return await db!.query(tableName);
   }
 }

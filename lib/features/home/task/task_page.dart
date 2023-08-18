@@ -12,10 +12,11 @@ class TaskPage extends GetView<TaskController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         elevation: 0,
         leading: GestureDetector(
             onTap: () {
-              Get.back();
+              controller.getBack();
             },
             child: Image.asset(Assets.exit)),
       ),

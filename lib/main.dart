@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import 'core/data/database/db_helper.dart';
+import 'core/resources/colors.dart' as colors;
 import 'core/routes/page.dart';
 import 'core/routes/routes.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await DBHelper.initDb();
   runApp(const MyApp());
 }
 
@@ -17,12 +21,13 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-          scaffoldBackgroundColor: Colors.white,
+          scaffoldBackgroundColor: colors.lightColor,
           appBarTheme: const AppBarTheme(
-            backgroundColor: Colors.white,
+            backgroundColor: colors.lightColor,
           ),
-          bottomSheetTheme:
-              const BottomSheetThemeData(backgroundColor: Colors.white)),
+          bottomSheetTheme: const BottomSheetThemeData(
+            backgroundColor: colors.lightColor,
+          )),
       initialRoute: Routes.splash,
       getPages: Pages.routePage,
     );
