@@ -43,4 +43,8 @@ class DBHelper {
     print("query function called");
     return await db!.query(tableName);
   }
+
+  static delete(TaskModel taskModel) {
+    db!.delete(tableName, where: 'id=?', whereArgs: [taskModel.id]);
+  }
 }

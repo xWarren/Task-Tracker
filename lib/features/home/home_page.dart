@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:get/get.dart';
+import 'package:task_app/features/task_detail/task_detail_page.dart';
 
 import '../../core/resources/assets.dart';
 import '../../core/resources/colors.dart' as colors;
@@ -41,9 +43,12 @@ class HomePage extends GetView<HomeController> {
                       color: colors.tertiaryColor,
                     ),
                   ),
-                  const Text(
-                    " tasks.",
-                    style: TextStyle(
+                  Text(
+                    // ignore: unrelated_type_equality_checks
+                    controller.taskController.taskList.length == 1
+                        ? " task."
+                        : " tasks.",
+                    style: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.w700,
                       color: colors.pendingColor,
@@ -77,7 +82,7 @@ class HomePage extends GetView<HomeController> {
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: controller.taskController.taskList.isNotEmpty
                   ? const Text(
-                      "In Progress",
+                      "To do",
                       style: TextStyle(
                           fontSize: 15,
                           fontWeight: FontWeight.w700,
@@ -85,95 +90,149 @@ class HomePage extends GetView<HomeController> {
                     )
                   : const SizedBox.shrink(),
             ),
+            const SizedBox(height: 5),
             controller.taskController.taskList.isNotEmpty
                 ? Expanded(
-                    child: Obx(
-                      () => ListView.builder(
-                          itemCount: controller.taskController.taskList.length,
-                          scrollDirection: Axis.horizontal,
-                          padding: const EdgeInsets.symmetric(horizontal: 10),
-                          physics: const BouncingScrollPhysics(),
-                          shrinkWrap: true,
-                          itemBuilder: (context, index) {
-                            var task =
-                                controller.taskController.taskList[index];
-                            // ignore: avoid_print
-                            print(controller.taskController.taskList.length);
-                            return Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Container(
-                                width: 300,
-                                decoration: ShapeDecoration(
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(15)),
-                                    color: colors.selection1),
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 20, vertical: 10),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        "${task.title}",
-                                        maxLines: 1,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: const TextStyle(
-                                          fontSize: 13,
-                                          color: colors.secondaryColor,
-                                        ),
-                                      ),
-                                      const SizedBox(height: 10),
-                                      Padding(
+                    child: ListView.builder(
+                        itemCount: controller.taskController.taskList.length,
+                        scrollDirection: Axis.horizontal,
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        physics: const BouncingScrollPhysics(),
+                        shrinkWrap: true,
+                        itemBuilder: (context, index) {
+                          var task = controller.taskController.taskList[index];
+                          // ignore: avoid_print
+                          print(controller.taskController.taskList.length);
+                          return AnimationConfiguration.staggeredList(
+                              position: index,
+                              child: SlideAnimation(
+                                curve: Curves.easeOut,
+                                horizontalOffset: 5.0,
+                                child: FadeInAnimation(
+                                  curve: Curves.easeOut,
+                                  duration: const Duration(milliseconds: 300),
+                                  child: GestureDetector(
+                                      onTap: () {
+                                        Get.to(TaskDetailPage(
+                                            controller: controller,
+                                            taskModel: controller.taskController
+                                                .taskList[index]));
+                                      },
+                                      child: Container(
                                         padding: const EdgeInsets.symmetric(
                                             horizontal: 10),
-                                        child: Text(
-                                          "${task.note}",
-                                          maxLines: 3,
-                                          overflow: TextOverflow.ellipsis,
-                                          style: const TextStyle(
-                                            fontSize: 17,
-                                            fontWeight: FontWeight.w600,
-                                            color: colors.pendingColor,
+                                        width: Get.width,
+                                        margin:
+                                            const EdgeInsets.only(bottom: 20),
+                                        child: Container(
+                                          padding: const EdgeInsets.all(16),
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                            color: _getBGColor(task.color ?? 0),
+                                            boxShadow: [
+                                              BoxShadow(
+                                                color: Colors.grey
+                                                    .withOpacity(0.2),
+                                                spreadRadius: 1,
+                                                blurRadius: 7,
+                                                offset: const Offset(0, 3),
+                                              ),
+                                            ],
+                                          ),
+                                          child: Row(
+                                            children: [
+                                              Expanded(
+                                                  child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    task.title.toString(),
+                                                    maxLines: 1,
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                    style: const TextStyle(
+                                                      fontSize: 15,
+                                                      fontWeight:
+                                                          FontWeight.w700,
+                                                      color:
+                                                          colors.pendingColor,
+                                                    ),
+                                                  ),
+                                                  const SizedBox(height: 10),
+                                                  Expanded(
+                                                    child: Text(
+                                                      task.note.toString(),
+                                                      maxLines: 2,
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
+                                                      style: const TextStyle(
+                                                        fontSize: 12,
+                                                        color: colors
+                                                            .secondaryColor,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              )),
+                                              Container(
+                                                margin:
+                                                    const EdgeInsets.symmetric(
+                                                        horizontal: 10),
+                                                height: 30,
+                                                color: Colors.grey[200],
+                                              ),
+                                              RotatedBox(
+                                                quarterTurns: 3,
+                                                child: Text(
+                                                  task.isCompleted == 1
+                                                      ? "COMPLETED"
+                                                      : "TODO",
+                                                  style: const TextStyle(
+                                                    fontSize: 15,
+                                                    fontWeight: FontWeight.bold,
+                                                    color: colors.pendingColor,
+                                                  ),
+                                                ),
+                                              )
+                                            ],
                                           ),
                                         ),
-                                      ),
-                                    ],
-                                  ),
+                                      )),
                                 ),
-                              ),
-                            );
-                          }),
-                    ),
+                              ));
+                        }),
                   )
-                : Column(
-                    children: [
-                      Image.asset(
-                        Assets.noTask,
-                        height: 150,
-                        width: 150,
-                        fit: BoxFit.cover,
-                      ),
-                      const Text(
-                        "No Task",
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w700,
-                          color: colors.pendingColor,
+                : Center(
+                    child: Column(
+                      children: [
+                        Image.asset(
+                          Assets.noTask,
+                          height: 150,
+                          width: 150,
+                          fit: BoxFit.cover,
                         ),
-                      ),
-                      const SizedBox(height: 5),
-                      const Text(
-                        "There is no pending task.",
-                        style: TextStyle(
-                          fontSize: 15,
-                          color: colors.secondaryColor,
+                        const Text(
+                          "No Task",
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.w700,
+                            color: colors.pendingColor,
+                          ),
                         ),
-                      )
-                    ],
+                        const SizedBox(height: 5),
+                        const Text(
+                          "There is no pending task.",
+                          style: TextStyle(
+                            fontSize: 15,
+                            color: colors.secondaryColor,
+                          ),
+                        )
+                      ],
+                    ),
                   ),
-            const SizedBox(height: 50),
+            const SizedBox(height: 10),
             const Padding(
               padding: EdgeInsets.symmetric(horizontal: 20),
               child: Text(
@@ -205,5 +264,22 @@ class HomePage extends GetView<HomeController> {
         ),
       ),
     );
+  }
+
+  _getBGColor(int no) {
+    switch (no) {
+      case 0:
+        return colors.selection1;
+      case 1:
+        return colors.selection2;
+      case 2:
+        return colors.selection3;
+      case 3:
+        return colors.selection4;
+      case 4:
+        return colors.selection5;
+      default:
+        return colors.selection1;
+    }
   }
 }

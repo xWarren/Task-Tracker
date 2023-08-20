@@ -93,9 +93,9 @@ class TaskController extends GetxController {
         taskModel: TaskModel(
       title: titleController.text,
       note: noteController.text,
-      date: DateFormat.yMd().format(selectedDate),
-      startTime: startTime,
-      endTime: endTime,
+      date: dateController.text,
+      startTime: startTimeController.text,
+      endTime: endTimeController.text,
       remind: remindDefault.value,
       repeat: repeatController.text,
       isCompleted: 0,
@@ -105,5 +105,7 @@ class TaskController extends GetxController {
     print("My id is $value");
   }
 
-  void delete() {}
+  void delete(TaskModel taskModel) {
+    DBHelper.delete(taskModel);
+  }
 }

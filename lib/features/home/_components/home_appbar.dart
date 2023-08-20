@@ -11,11 +11,11 @@ class HomeAppBar extends AppBar {
   }) : super(
             key: key,
             elevation: 0,
-            title: const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 5),
+            title: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 5),
               child: Text(
-                "Good Morning",
-                style: TextStyle(
+                controller.greeting(),
+                style: const TextStyle(
                     fontSize: 13,
                     fontWeight: FontWeight.w500,
                     color: colors.secondaryColor),
