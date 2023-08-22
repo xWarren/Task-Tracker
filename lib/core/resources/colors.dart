@@ -5,6 +5,7 @@ const Color secondaryColor = Color(0xFF696967);
 const Color tertiaryColor = Color(0xFFFFAD47);
 const Color pendingColor = Color(0xFF064F60);
 const Color lightColor = Color(0xFFFAFAFA);
+const Color cancelColor = Color(0xFFC20202);
 
 const Color selection1 = Color.fromRGBO(194, 94, 255, 0.50);
 const Color selection2 = Color.fromRGBO(78, 95, 255, 0.5);
