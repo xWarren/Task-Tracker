@@ -1,10 +1,293 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+import '../../core/data/models/task_model.dart';
+import '../../core/resources/assets.dart';
+import '../../core/resources/colors.dart' as colors;
 
 class TaskDetailPage extends StatelessWidget {
-  const TaskDetailPage({super.key});
+  final dynamic controller;
+  final TaskModel taskModel;
+  final int index;
+  const TaskDetailPage(
+      {required this.controller,
+      required this.taskModel,
+      required this.index,
+      super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      body: CustomScrollView(
+        slivers: [
+          SliverAppBar(
+            expandedHeight: 50.0,
+            pinned: true,
+            backgroundColor: colors.lightColor,
+            flexibleSpace: const FlexibleSpaceBar(
+              centerTitle: true,
+              title: Text(
+                "Task Detail",
+                style: TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.w500,
+                  color: colors.secondaryColor,
+                ),
+              ),
+            ),
+            leading: GestureDetector(
+                onTap: () {
+                  Get.back();
+                },
+                child: Image.asset(Assets.exit)),
+          ),
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const SizedBox(height: 20),
+                  Text(
+                    taskModel.title.toString(),
+                    style: const TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: colors.pendingColor,
+                    ),
+                  ),
+                  const SizedBox(height: 30),
+                  Row(
+                    children: [
+                      Container(
+                        height: 40,
+                        width: 40,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: colors.lightColor,
+                            boxShadow: const [
+                              BoxShadow(blurRadius: 3.0, color: Colors.black)
+                            ]),
+                        child: const Icon(
+                          Icons.calendar_month,
+                          color: colors.tertiaryColor,
+                        ),
+                      ),
+                      const SizedBox(width: 10),
+                      Expanded(
+                          child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            "Deadline",
+                            style: TextStyle(
+                              fontSize: 13,
+                              fontWeight: FontWeight.w500,
+                              color: colors.secondaryColor,
+                            ),
+                          ),
+                          Text(
+                            taskModel.date.toString().isNotEmpty
+                                ? taskModel.date.toString()
+                                : "No set a date",
+                            style: const TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500,
+                              color: colors.pendingColor,
+                            ),
+                          )
+                        ],
+                      )),
+                      Container(
+                        height: 40,
+                        width: 40,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: colors.lightColor,
+                            boxShadow: const [
+                              BoxShadow(blurRadius: 3.0, color: Colors.black)
+                            ]),
+                        child: const Icon(
+                          Icons.access_alarm_rounded,
+                          color: colors.tertiaryColor,
+                        ),
+                      ),
+                      const SizedBox(width: 10),
+                      Expanded(
+                          child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            "Time",
+                            style: TextStyle(
+                              fontSize: 13,
+                              fontWeight: FontWeight.w500,
+                              color: colors.secondaryColor,
+                            ),
+                          ),
+                          Text(
+                            taskModel.startTime.toString().isNotEmpty &&
+                                    taskModel.endTime.toString().isNotEmpty
+                                ? "${taskModel.startTime.toString()} - ${taskModel.endTime.toString()}"
+                                : "No set a time",
+                            style: const TextStyle(
+                              fontSize: 13,
+                              fontWeight: FontWeight.w500,
+                              color: colors.pendingColor,
+                            ),
+                          )
+                        ],
+                      )),
+                    ],
+                  ),
+                  const SizedBox(height: 40),
+                  const Text(
+                    "Description",
+                    style: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w700,
+                      color: colors.pendingColor,
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  Text(
+                    taskModel.note.toString(),
+                    style: const TextStyle(
+                      fontSize: 15,
+                      color: colors.secondaryColor,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+      bottomSheet: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+        child: Row(
+          children: [
+            Expanded(
+              child: SizedBox(
+                width: Get.width,
+                height: 50,
+                child: ElevatedButton(
+                    onPressed: () {
+                      controller.taskController.taskCompleted(taskModel.id!);
+                    },
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: colors.pendingColor,
+                        elevation: 5,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15))),
+                    child: const Text(
+                      "Task Completed",
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w700,
+                        color: colors.lightColor,
+                      ),
+                    )),
+              ),
+            ),
+            const SizedBox(width: 10),
+            Expanded(
+              child: SizedBox(
+                width: Get.width,
+                height: 50,
+                child: ElevatedButton(
+                    onPressed: () {
+                      Get.defaultDialog(
+                          title: "Delete this task?",
+                          backgroundColor: colors.lightColor,
+                          titleStyle: const TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.w500,
+                            color: colors.pendingColor,
+                          ),
+                          barrierDismissible: false,
+                          content: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  child: SizedBox(
+                                    width: Get.width,
+                                    height: 40,
+                                    child: ElevatedButton(
+                                        onPressed: () {
+                                          Get.back();
+                                        },
+                                        style: ElevatedButton.styleFrom(
+                                            backgroundColor: colors.lightColor,
+                                            shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
+                                                side: const BorderSide(
+                                                    color:
+                                                        colors.pendingColor))),
+                                        child: const Text(
+                                          "Cancel",
+                                          style: TextStyle(
+                                              fontSize: 15,
+                                              fontWeight: FontWeight.w500,
+                                              color: colors.pendingColor),
+                                        )),
+                                  ),
+                                ),
+                                const SizedBox(width: 10),
+                                Expanded(
+                                  child: SizedBox(
+                                    width: Get.width,
+                                    height: 40,
+                                    child: ElevatedButton(
+                                        onPressed: () {
+                                          controller.taskController.delete(
+                                              controller.taskController
+                                                  .taskList[index]);
+                                          controller.taskController.getTasks();
+                                        },
+                                        style: ElevatedButton.styleFrom(
+                                            backgroundColor: colors.lightColor,
+                                            shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
+                                                side: const BorderSide(
+                                                    color:
+                                                        colors.cancelColor))),
+                                        child: const Text(
+                                          "Yes, Remove",
+                                          style: TextStyle(
+                                              fontSize: 15,
+                                              fontWeight: FontWeight.w500,
+                                              color: colors.pendingColor),
+                                        )),
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                          radius: 20);
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: colors.cancelColor,
+                      elevation: 5,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15)),
+                    ),
+                    child: const Text(
+                      "Delete Task",
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w700,
+                        color: colors.lightColor,
+                      ),
+                    )),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }

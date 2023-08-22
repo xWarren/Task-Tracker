@@ -7,7 +7,7 @@ import '../../../core/data/models/task_model.dart';
 import '../../../core/resources/colors.dart' as colors;
 
 class TaskController extends GetxController {
-  RxInt length = 150.obs;
+  RxInt length = 250.obs;
 
   var date = "December 19, 2023";
   String startTime = DateFormat("hh:mm a").format(DateTime.now()).toString();
@@ -93,11 +93,12 @@ class TaskController extends GetxController {
         taskModel: TaskModel(
       title: titleController.text,
       note: noteController.text,
-      date: DateFormat.yMd().format(selectedDate),
-      startTime: startTime,
-      endTime: endTime,
+      date: dateController.text,
+      startTime: startTimeController.text,
+      endTime: endTimeController.text,
       remind: remindDefault.value,
       repeat: repeatController.text,
+      color: selectedColor.value,
       isCompleted: 0,
     ));
 
@@ -105,5 +106,17 @@ class TaskController extends GetxController {
     print("My id is $value");
   }
 
-  void delete() {}
+  void delete(TaskModel taskModel) {
+    DBHelper.delete(taskModel);
+    getTasks();
+    Get.back();
+    Get.back();
+  }
+
+  void taskCompleted(int id) async {
+    await DBHelper.update(id);
+    getTasks();
+    Get.back();
+    Get.back();
+  }
 }
