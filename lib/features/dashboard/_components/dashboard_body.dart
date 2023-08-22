@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 
 import '../../../core/resources/assets.dart';
 import '../../../core/resources/colors.dart' as colors;
+import '../../../core/resources/strings.dart' as strings;
+import '../../../core/resources/text_style.dart';
 import '../../../core/routes/routes.dart';
 
 class DashboardBody extends StatelessWidget {
@@ -15,64 +17,73 @@ class DashboardBody extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           const SizedBox(height: 50),
-          Center(
-            child: Image.asset(
-              Assets.taskLogo,
-              height: 270,
-              width: 230,
-              fit: BoxFit.cover,
-            ),
-          ),
+          _buildImage(),
           const SizedBox(height: 70),
-          const Text(
-            "Easy Task Creation",
-            style: TextStyle(
-              fontSize: 25,
-              fontWeight: FontWeight.w600,
-              color: colors.pendingColor,
-            ),
-          ),
+          _buildDashboardTitle(),
           const SizedBox(height: 20),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 15),
-            child: Text(
-              "Quickly add tasks, set due dates and add descriptions with\nease using our task app.\nSimplify your workflow and stay organized.",
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 13,
-                color: colors.secondaryColor,
+          _buildDashboardDescription(),
+          const SizedBox(height: 100),
+          _buildButton(),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildButton() {
+    return Container(
+      width: Get.width,
+      height: 50,
+      padding: const EdgeInsets.symmetric(horizontal: 25),
+      child: ElevatedButton(
+          onPressed: () {
+            Get.offAndToNamed(Routes.home);
+          },
+          style: ElevatedButton.styleFrom(
+            backgroundColor: colors.tertiaryColor,
+            elevation: 5,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(15),
+              side: const BorderSide(
+                color: colors.tertiaryColor,
               ),
             ),
           ),
-          const SizedBox(height: 100),
-          Container(
-            width: Get.width,
-            height: 50,
-            padding: const EdgeInsets.symmetric(horizontal: 25),
-            child: ElevatedButton(
-                onPressed: () {
-                  Get.offAndToNamed(Routes.home);
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: colors.tertiaryColor,
-                  elevation: 5,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15),
-                    side: const BorderSide(
-                      color: colors.tertiaryColor,
-                    ),
-                  ),
-                ),
-                child: const Text(
-                  "Get Started",
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w800,
-                    color: colors.lightColor,
-                  ),
-                )),
-          ),
-        ],
+          child: _buildGetStartedText()),
+    );
+  }
+
+  Widget _buildGetStartedText() {
+    return Text(
+      strings.dashboardGetStarted,
+      style: CustomStyle.dashboardGetStartedStyle,
+    );
+  }
+
+  Widget _buildDashboardDescription() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 15),
+      child: Text(
+        strings.dashboarDescription,
+        textAlign: TextAlign.center,
+        style: CustomStyle.dashboardDescriptionStyle,
+      ),
+    );
+  }
+
+  Widget _buildDashboardTitle() {
+    return Text(
+      strings.dashboardTitle,
+      style: CustomStyle.dashboardTitleStyle,
+    );
+  }
+
+  Widget _buildImage() {
+    return Center(
+      child: Image.asset(
+        Assets.taskLogo,
+        height: 270,
+        width: 230,
+        fit: BoxFit.cover,
       ),
     );
   }

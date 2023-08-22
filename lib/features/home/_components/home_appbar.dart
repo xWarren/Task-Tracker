@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../core/resources/colors.dart' as colors;
+import '../../../core/resources/strings.dart' as strings;
+import '../../../core/resources/text_style.dart';
 import '../../../core/routes/routes.dart';
 
 class HomeAppBar extends AppBar {
@@ -15,10 +17,7 @@ class HomeAppBar extends AppBar {
               padding: const EdgeInsets.symmetric(horizontal: 5),
               child: Text(
                 controller.greeting(),
-                style: const TextStyle(
-                    fontSize: 13,
-                    fontWeight: FontWeight.w500,
-                    color: colors.secondaryColor),
+                style: CustomStyle.homeGreetingStyle,
               ),
             ),
             actions: [
@@ -37,13 +36,9 @@ class HomeAppBar extends AppBar {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
                       )),
-                  child: const Text(
-                    "+ Add Task",
-                    style: TextStyle(
-                      fontSize: 15,
-                      fontWeight: FontWeight.w600,
-                      color: colors.lightColor,
-                    ),
+                  child: Text(
+                    strings.homeAddTask,
+                    style: CustomStyle.homeAddTaskStyle,
                   ),
                 ),
               ),

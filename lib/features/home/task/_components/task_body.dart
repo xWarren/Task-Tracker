@@ -140,7 +140,7 @@ class TaskBody extends GetView<TaskController> {
     );
   }
 
-  SizedBox _buildRepeatField() {
+  Widget _buildRepeatField() {
     return SizedBox(
       height: 50,
       child: DropdownButtonFormField(
@@ -165,7 +165,7 @@ class TaskBody extends GetView<TaskController> {
             );
           }).toList(),
           onChanged: (newValue) {
-            controller.repeatDefault = newValue!;
+            controller.repeatDefault = newValue.toString();
           }),
     );
   }
@@ -365,8 +365,7 @@ class TaskBody extends GetView<TaskController> {
               firstDate: DateTime(1900, 1, 1),
               lastDate: DateTime(2101));
           if (picked != null) {
-            controller.dateController.text =
-                DateFormat('MMMM d, yyyy').format(picked).toString();
+            controller.dateController.text = DateFormat.yMd().format(picked);
           }
         },
       ),
