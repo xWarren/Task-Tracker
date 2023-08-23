@@ -24,8 +24,8 @@ class TaskController extends GetxController {
   TextEditingController startTimeController = TextEditingController();
   TextEditingController endTimeController = TextEditingController();
   TextEditingController repeatController = TextEditingController();
-
-  DateTime selectedDate = DateTime.now();
+  Rx<DateTime> selectedDate = DateTime.now().obs;
+  Rx<DateTime> dateToday = Rx<DateTime>(DateTime.now());
   RxInt remindDefault = 5.obs;
   var repeatDefault = 'None';
 

@@ -25,9 +25,14 @@ class HomeBody extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
-            taskList.isNotEmpty
-                ? _buildGotTaskCondition()
-                : const SizedBox.shrink(),
+            _buildDateToday(),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Text(
+                "Today",
+                style: CustomStyle.homeYouGotStyle,
+              ),
+            ),
             _buildDatePicker(),
             const SizedBox(height: 20),
             _buildToDoText(),
@@ -45,40 +50,14 @@ class HomeBody extends StatelessWidget {
     );
   }
 
-  Widget _buildGotTaskCondition() {
+  Padding _buildDateToday() {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
-      child: Row(
-        children: [
-          _buildGot(),
-          _buildTaskListLength(),
-          _buildTaskCondition(),
-        ],
+      child: Text(
+        DateFormat('MMMM d, yyyy')
+            .format(controller.taskController.dateToday.value),
+        style: CustomStyle.homeNoPendingTaskStyle,
       ),
-    );
-  }
-
-  Widget _buildGot() {
-    return Text(
-      strings.homeYouGot,
-      style: CustomStyle.homeYouGotStyle,
-    );
-  }
-
-  Widget _buildTaskListLength() {
-    return Text(
-      "${controller.taskController.taskList.length}",
-      style: CustomStyle.homeTaskListStyle,
-    );
-  }
-
-  Widget _buildTaskCondition() {
-    return Text(
-      // ignore: unrelated_type_equality_checks
-      controller.taskController.taskList.length == 1
-          ? strings.homeTask
-          : strings.homeTasks,
-      style: CustomStyle.homeYouGotStyle,
     );
   }
 
@@ -87,8 +66,8 @@ class HomeBody extends StatelessWidget {
       margin: const EdgeInsets.symmetric(vertical: 10),
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: DatePicker(
-        DateTime.now(),
-        initialSelectedDate: DateTime.now(),
+        controller.taskController.dateToday.value,
+        initialSelectedDate: controller.taskController.selectedDate.value,
         selectionColor: colors.pendingColor,
         selectedTextColor: Colors.white,
         dateTextStyle: const TextStyle(
@@ -101,8 +80,8 @@ class HomeBody extends StatelessWidget {
           fontWeight: FontWeight.w500,
           color: colors.primaryColor,
         ),
-        onDateChange: (selectedDate) {
-          controller.taskController.selectedDate = selectedDate;
+        onDateChange: (date) {
+          controller.taskController.selectedDate.value = date;
         },
       ),
     );
@@ -130,13 +109,25 @@ class HomeBody extends StatelessWidget {
             // ignore: avoid_print
             print(task.toJson());
             if (task.repeat == 'Daily') {
-              return _buildTaskModel(index, task);
+              return task.isCompleted != 1
+                  ? _buildTaskModel(index, task)
+                  : const SizedBox.shrink();
+            } else if (task.date ==
+                DateFormat.yMd()
+                    .format(controller.taskController.selectedDate.value)
+                    .toString()) {
+              return task.isCompleted != 1
+                  ? _buildTaskModel(index, task)
+                  : const SizedBox.shrink();
+            } else if (task.date ==
+                DateFormat.yMd()
+                    .format(controller.taskController.selectedDate.value)
+                    .toString()) {
+              return task.isCompleted != 1
+                  ? _buildTaskModel(index, task)
+                  : const SizedBox.shrink();
             }
-            if (task.date ==
-                DateFormat('MMMM d, yyyy')
-                    .format(controller.taskController.selectedDate)
-                    .toString()) {}
-            return _buildTaskModel(index, task);
+            return const SizedBox.shrink();
           }),
     );
   }

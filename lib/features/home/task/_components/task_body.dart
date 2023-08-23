@@ -361,7 +361,7 @@ class TaskBody extends GetView<TaskController> {
         onTap: () async {
           DateTime? picked = await showDatePicker(
               context: context,
-              initialDate: controller.selectedDate,
+              initialDate: controller.selectedDate.value,
               firstDate: DateTime(1900, 1, 1),
               lastDate: DateTime(2101));
           if (picked != null) {

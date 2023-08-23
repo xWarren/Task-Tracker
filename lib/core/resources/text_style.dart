@@ -25,6 +25,11 @@ class CustomStyle {
     fontWeight: FontWeight.w500,
     color: colors.secondaryColor,
   );
+  static TextStyle homeDateStyle = const TextStyle(
+    fontSize: 15,
+    fontWeight: FontWeight.w500,
+    color: colors.pendingColor,
+  );
   static TextStyle homeAddTaskStyle = const TextStyle(
     fontSize: 15,
     fontWeight: FontWeight.w600,
@@ -34,11 +39,6 @@ class CustomStyle {
     fontSize: 18,
     fontWeight: FontWeight.w700,
     color: colors.pendingColor,
-  );
-  static TextStyle homeTaskListStyle = const TextStyle(
-    fontSize: 18,
-    fontWeight: FontWeight.w700,
-    color: colors.tertiaryColor,
   );
   static TextStyle homeToDoStyle = const TextStyle(
     fontSize: 15,
