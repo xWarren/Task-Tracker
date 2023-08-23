@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:intl/intl.dart';
 
 import '../../../core/data/database/db_helper.dart';
@@ -7,9 +8,9 @@ import '../../../core/data/models/task_model.dart';
 import '../../../core/resources/colors.dart' as colors;
 
 class TaskController extends GetxController {
-  RxInt length = 250.obs;
+  RxInt length = 150.obs;
 
-  var date = "December 19, 2023";
+  var date = "01/01/2023";
   String startTime = DateFormat("hh:mm a").format(DateTime.now()).toString();
   var endTime = "10:30 PM";
 
@@ -23,10 +24,10 @@ class TaskController extends GetxController {
   TextEditingController startTimeController = TextEditingController();
   TextEditingController endTimeController = TextEditingController();
   TextEditingController repeatController = TextEditingController();
-
-  DateTime selectedDate = DateTime.now();
+  Rx<DateTime> selectedDate = DateTime.now().obs;
+  Rx<DateTime> dateToday = Rx<DateTime>(DateTime.now());
   RxInt remindDefault = 5.obs;
-  var repeatDefault = "None";
+  var repeatDefault = 'None';
 
   var taskList = <TaskModel>[].obs;
 
@@ -55,8 +56,8 @@ class TaskController extends GetxController {
     dateController.clear();
     startTimeController.clear();
     endTimeController.clear();
-    repeatController.clear();
-    selectedColor.value;
+    repeatDefault.obs;
+    selectedColor.obs;
     Get.back();
   }
 
@@ -97,7 +98,7 @@ class TaskController extends GetxController {
       startTime: startTimeController.text,
       endTime: endTimeController.text,
       remind: remindDefault.value,
-      repeat: repeatController.text,
+      repeat: repeatDefault,
       color: selectedColor.value,
       isCompleted: 0,
     ));
