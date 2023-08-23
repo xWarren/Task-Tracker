@@ -26,13 +26,7 @@ class HomeBody extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             _buildDateToday(),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Text(
-                "Today",
-                style: CustomStyle.homeYouGotStyle,
-              ),
-            ),
+            _buildTodayText(),
             _buildDatePicker(),
             const SizedBox(height: 20),
             _buildToDoText(),
@@ -46,6 +40,16 @@ class HomeBody extends StatelessWidget {
                 : _buildNoCompletedTask()
           ],
         ),
+      ),
+    );
+  }
+
+  Padding _buildTodayText() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: Text(
+        "Today",
+        style: CustomStyle.homeYouGotStyle,
       ),
     );
   }
