@@ -20,22 +20,19 @@ class TaskController extends GetxController {
   TextEditingController titleController = TextEditingController();
   TextEditingController noteController = TextEditingController();
   TextEditingController dateController = TextEditingController();
-  TextEditingController startTimeController = TextEditingController();
-  TextEditingController endTimeController = TextEditingController();
   TextEditingController repeatController = TextEditingController();
+<<<<<<< Updated upstream
 
   DateTime selectedDate = DateTime.now();
   RxInt remindDefault = 5.obs;
   var repeatDefault = "None";
+=======
+  Rx<DateTime> selectedDate = DateTime.now().obs;
+  Rx<DateTime> dateToday = Rx<DateTime>(DateTime.now());
+  var repeatDefault = 'None';
+>>>>>>> Stashed changes
 
   var taskList = <TaskModel>[].obs;
-
-  List<int> remind = [
-    5,
-    10,
-    15,
-    20,
-  ];
   List<String> repeat = [
     "None",
     "Daily",
@@ -53,10 +50,15 @@ class TaskController extends GetxController {
     titleController.clear();
     noteController.clear();
     dateController.clear();
+<<<<<<< Updated upstream
     startTimeController.clear();
     endTimeController.clear();
     repeatController.clear();
     selectedColor.value;
+=======
+    repeatDefault.obs;
+    selectedColor.obs;
+>>>>>>> Stashed changes
     Get.back();
   }
 
@@ -94,10 +96,14 @@ class TaskController extends GetxController {
       title: titleController.text,
       note: noteController.text,
       date: dateController.text,
+<<<<<<< Updated upstream
       startTime: startTimeController.text,
       endTime: endTimeController.text,
       remind: remindDefault.value,
       repeat: repeatController.text,
+=======
+      repeat: repeatDefault,
+>>>>>>> Stashed changes
       color: selectedColor.value,
       isCompleted: 0,
     ));
@@ -118,5 +124,32 @@ class TaskController extends GetxController {
     getTasks();
     Get.back();
     Get.back();
+  }
+
+  void updateDetail(int id) async {
+    await DBHelper.updateDetails(id);
+    getTasks();
+  }
+
+  List<DateTime> getTuesdaysInSeptember(int year) {
+    List<DateTime> tuesdays = [];
+
+    for (int day = 1; day <= 30; day++) {
+      DateTime date = DateTime(year, 9, day);
+      if (date.weekday == DateTime.tuesday) {
+        tuesdays.add(date);
+      }
+    }
+
+    return tuesdays;
+  }
+
+  void getTuesday() {
+    int year = DateTime.now().year;
+    List<DateTime> tuesdaysInSeptember = getTuesdaysInSeptember(year);
+
+    for (DateTime tuesday in tuesdaysInSeptember) {
+      print(tuesday);
+    }
   }
 }

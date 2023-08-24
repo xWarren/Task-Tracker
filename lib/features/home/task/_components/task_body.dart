@@ -33,12 +33,6 @@ class TaskBody extends GetView<TaskController> {
                 const SizedBox(height: 5),
                 _buildDateField(context),
                 const SizedBox(height: 10),
-                _buildTime(context),
-                const SizedBox(height: 10),
-                _buildRemindText(),
-                const SizedBox(height: 5),
-                _buildRemindField(),
-                const SizedBox(height: 10),
                 _buildRepeatText(),
                 const SizedBox(height: 5),
                 _buildRepeatField(),
@@ -181,162 +175,12 @@ class TaskBody extends GetView<TaskController> {
     );
   }
 
-  SizedBox _buildRemindField() {
-    return SizedBox(
-      height: 50,
-      child: DropdownButtonFormField(
-          decoration: InputDecoration(
-              fillColor: colors.lightColor,
-              contentPadding: const EdgeInsets.symmetric(horizontal: 20),
-              filled: true,
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
-                borderSide: const BorderSide(color: colors.tertiaryColor),
-              ),
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
-                borderSide: const BorderSide(color: colors.secondaryColor),
-              )),
-          value: controller.remindDefault.toString(),
-          items: controller.remind.map<DropdownMenuItem<String>>((int value) {
-            return DropdownMenuItem<String>(
-              value: value.toString(),
-              child: Text("${value.toString()} minutes"),
-            );
-          }).toList(),
-          onChanged: (newValue) {
-            controller.remindDefault.value = newValue!.toString() as int;
-          }),
-    );
-  }
-
-  Text _buildRemindText() {
-    return const Text(
-      "Remind",
-      style: TextStyle(
-        fontSize: 15,
-        fontWeight: FontWeight.w700,
-        color: colors.pendingColor,
-      ),
-    );
-  }
-
-  Row _buildTime(BuildContext context) {
-    return Row(
-      children: [
-        _buildStartTime(context),
-        const SizedBox(width: 10),
-        _buildEndTime(context),
-      ],
-    );
-  }
-
-  Expanded _buildEndTime(BuildContext context) {
-    return Expanded(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text(
-            "End Time",
-            style: TextStyle(
-              fontSize: 15,
-              fontWeight: FontWeight.w700,
-              color: colors.pendingColor,
-            ),
-          ),
-          const SizedBox(height: 5),
-          SizedBox(
-            height: 50,
-            child: TextFormField(
-              controller: controller.endTimeController,
-              textInputAction: TextInputAction.done,
-              decoration: InputDecoration(
-                  hintText: controller.endTime,
-                  suffixIcon: const Icon(Icons.watch),
-                  fillColor: colors.lightColor,
-                  contentPadding: const EdgeInsets.symmetric(horizontal: 20),
-                  filled: true,
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                    borderSide: const BorderSide(color: colors.tertiaryColor),
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                    borderSide: const BorderSide(color: colors.secondaryColor),
-                  )),
-              onTap: () async {
-                final TimeOfDay? endTime = await showTimePicker(
-                    context: context,
-                    initialEntryMode: TimePickerEntryMode.input,
-                    initialTime: const TimeOfDay(hour: 9, minute: 10));
-                String formatedTime =
-                    // ignore: use_build_context_synchronously
-                    endTime!.format(context);
-                controller.endTimeController.text = formatedTime;
-              },
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Expanded _buildStartTime(BuildContext context) {
-    return Expanded(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text(
-            "Start Time",
-            style: TextStyle(
-              fontSize: 15,
-              fontWeight: FontWeight.w700,
-              color: colors.pendingColor,
-            ),
-          ),
-          const SizedBox(height: 5),
-          SizedBox(
-            height: 50,
-            child: TextFormField(
-              controller: controller.startTimeController,
-              textInputAction: TextInputAction.done,
-              decoration: InputDecoration(
-                  hintText: controller.startTime,
-                  suffixIcon: const Icon(Icons.watch),
-                  fillColor: colors.lightColor,
-                  contentPadding: const EdgeInsets.symmetric(horizontal: 20),
-                  filled: true,
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                    borderSide: const BorderSide(color: colors.tertiaryColor),
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                    borderSide: const BorderSide(color: colors.secondaryColor),
-                  )),
-              onTap: () async {
-                final TimeOfDay? startTime = await showTimePicker(
-                    context: context,
-                    initialEntryMode: TimePickerEntryMode.input,
-                    initialTime: TimeOfDay.now());
-                String formatedTime =
-                    // ignore: use_build_context_synchronously
-                    startTime!.format(context);
-                controller.startTimeController.text = formatedTime;
-              },
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
   SizedBox _buildDateField(BuildContext context) {
     return SizedBox(
       height: 50,
       child: TextFormField(
         controller: controller.dateController,
-        textInputAction: TextInputAction.done,
+        textInputAction: TextInputAction.next,
         decoration: InputDecoration(
           hintText: controller.date,
           suffixIcon: const Icon(Icons.calendar_today),
@@ -389,7 +233,7 @@ class TaskBody extends GetView<TaskController> {
       height: 150,
       child: TextFormField(
         controller: controller.noteController,
-        textInputAction: TextInputAction.done,
+        textInputAction: TextInputAction.next,
         maxLength: controller.length.value,
         maxLines: 5,
         decoration: InputDecoration(

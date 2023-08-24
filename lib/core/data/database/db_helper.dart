@@ -20,8 +20,7 @@ class DBHelper {
           "CREATE TABLE $tableName("
           "id INTEGER PRIMARY KEY AUTOINCREMENT, "
           " title STRING, note TEXT, date STRING, "
-          " startTime STRING, endTime STRING, "
-          " remind INTEGER, repeat STRING, "
+          " repeat STRING, "
           " color INTEGER, "
           " isCompleted INTEGER)",
         );
@@ -52,6 +51,15 @@ class DBHelper {
     db!.rawUpdate('''
       UPDATE tasks
       SET isCompleted = ?
+      WHERE id = ?
+      ''', [1, id]);
+  }
+
+  static updateDetails(int id) {
+    db!.rawUpdate('''
+      UPDATE tasks
+      SET title = ?
+      SET note = ?
       WHERE id = ?
       ''', [1, id]);
   }
