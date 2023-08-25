@@ -24,130 +24,132 @@ class TaskDetailPage extends StatelessWidget {
           _buildSliverToBoxAdapter(),
         ],
       ),
-      bottomSheet: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
-        child: Row(
-          children: [
-            Expanded(
-              child: SizedBox(
-                width: Get.width,
-                height: 50,
-                child: ElevatedButton(
-                    onPressed: () {
-                      controller.taskController.taskCompleted(taskModel.id!);
-                    },
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: colors.pendingColor,
-                        elevation: 5,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(15))),
-                    child: const Text(
-                      "Task Completed",
-                      style: TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.w700,
-                        color: colors.lightColor,
-                      ),
-                    )),
-              ),
-            ),
-            const SizedBox(width: 10),
-            Expanded(
-              child: SizedBox(
-                width: Get.width,
-                height: 50,
-                child: ElevatedButton(
-                    onPressed: () {
-                      Get.defaultDialog(
-                          title: "Delete this task?",
-                          backgroundColor: colors.lightColor,
-                          titleStyle: const TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.w500,
-                            color: colors.pendingColor,
-                          ),
-                          barrierDismissible: false,
-                          content: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  child: SizedBox(
-                                    width: Get.width,
-                                    height: 40,
-                                    child: ElevatedButton(
-                                        onPressed: () {
-                                          Get.back();
-                                        },
-                                        style: ElevatedButton.styleFrom(
-                                            backgroundColor: colors.lightColor,
-                                            shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(10),
-                                                side: const BorderSide(
-                                                    color:
-                                                        colors.pendingColor))),
-                                        child: const Text(
-                                          "Cancel",
-                                          style: TextStyle(
-                                              fontSize: 15,
-                                              fontWeight: FontWeight.w500,
-                                              color: colors.pendingColor),
-                                        )),
-                                  ),
-                                ),
-                                const SizedBox(width: 10),
-                                Expanded(
-                                  child: SizedBox(
-                                    width: Get.width,
-                                    height: 40,
-                                    child: ElevatedButton(
-                                        onPressed: () {
-                                          controller.taskController.delete(
-                                              controller.taskController
-                                                  .taskList[index]);
-                                          controller.taskController.getTasks();
-                                        },
-                                        style: ElevatedButton.styleFrom(
-                                            backgroundColor: colors.lightColor,
-                                            shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(10),
-                                                side: const BorderSide(
-                                                    color:
-                                                        colors.cancelColor))),
-                                        child: const Text(
-                                          "Yes, Remove",
-                                          style: TextStyle(
-                                              fontSize: 15,
-                                              fontWeight: FontWeight.w500,
-                                              color: colors.pendingColor),
-                                        )),
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
-                          radius: 20);
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: colors.cancelColor,
+      bottomSheet: _buildBottomSheet(),
+    );
+  }
+
+  Widget _buildBottomSheet() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+      child: Row(
+        children: [
+          Expanded(
+            child: SizedBox(
+              width: Get.width,
+              height: 50,
+              child: ElevatedButton(
+                  onPressed: () {
+                    controller.taskController.taskCompleted(taskModel.id!);
+                  },
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: colors.pendingColor,
                       elevation: 5,
                       shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15)),
+                          borderRadius: BorderRadius.circular(15))),
+                  child: const Text(
+                    "Task Completed",
+                    style: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w700,
+                      color: colors.lightColor,
                     ),
-                    child: const Text(
-                      "Delete Task",
-                      style: TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.w700,
-                        color: colors.lightColor,
-                      ),
-                    )),
-              ),
+                  )),
             ),
-          ],
-        ),
+          ),
+          const SizedBox(width: 10),
+          Expanded(
+            child: SizedBox(
+              width: Get.width,
+              height: 50,
+              child: ElevatedButton(
+                  onPressed: () {
+                    Get.defaultDialog(
+                        title: "Delete this task?",
+                        backgroundColor: colors.lightColor,
+                        titleStyle: const TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w500,
+                          color: colors.pendingColor,
+                        ),
+                        barrierDismissible: false,
+                        content: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: SizedBox(
+                                  width: Get.width,
+                                  height: 40,
+                                  child: ElevatedButton(
+                                      onPressed: () {
+                                        Get.back();
+                                      },
+                                      style: ElevatedButton.styleFrom(
+                                          backgroundColor: colors.lightColor,
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                              side: const BorderSide(
+                                                  color: colors.pendingColor))),
+                                      child: const Text(
+                                        "Cancel",
+                                        style: TextStyle(
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.w500,
+                                            color: colors.pendingColor),
+                                      )),
+                                ),
+                              ),
+                              const SizedBox(width: 10),
+                              Expanded(
+                                child: SizedBox(
+                                  width: Get.width,
+                                  height: 40,
+                                  child: ElevatedButton(
+                                      onPressed: () {
+                                        controller.taskController.delete(
+                                            controller.taskController
+                                                .taskList[index]);
+                                        controller.taskController.getTasks();
+                                      },
+                                      style: ElevatedButton.styleFrom(
+                                          backgroundColor: colors.lightColor,
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                              side: const BorderSide(
+                                                  color: colors.cancelColor))),
+                                      child: const Text(
+                                        "Yes, Remove",
+                                        style: TextStyle(
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.w500,
+                                            color: colors.pendingColor),
+                                      )),
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                        radius: 20);
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: colors.cancelColor,
+                    elevation: 5,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15)),
+                  ),
+                  child: const Text(
+                    "Delete Task",
+                    style: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w700,
+                      color: colors.lightColor,
+                    ),
+                  )),
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -167,9 +169,6 @@ class TaskDetailPage extends StatelessWidget {
                 _buildCalendarIcon(),
                 const SizedBox(width: 10),
                 _buildDateColumn(),
-                _buildAlarmIcon(),
-                const SizedBox(width: 10),
-                _buildTimeColumn(),
               ],
             ),
             const SizedBox(height: 40),
@@ -183,12 +182,14 @@ class TaskDetailPage extends StatelessWidget {
   }
 
   Widget _buildTitle() {
-    return Text(
-      taskModel.title.toString(),
-      style: const TextStyle(
-        fontSize: 20,
-        fontWeight: FontWeight.bold,
-        color: colors.pendingColor,
+    return Center(
+      child: Text(
+        taskModel.title.toString(),
+        style: const TextStyle(
+          fontSize: 20,
+          fontWeight: FontWeight.bold,
+          color: colors.pendingColor,
+        ),
       ),
     );
   }
@@ -232,54 +233,6 @@ class TaskDetailPage extends StatelessWidget {
       taskModel.date.toString().isNotEmpty
           ? taskModel.date.toString()
           : "No set a date",
-      style: const TextStyle(
-        fontSize: 14,
-        fontWeight: FontWeight.w500,
-        color: colors.pendingColor,
-      ),
-    );
-  }
-
-  Widget _buildAlarmIcon() {
-    return Container(
-      height: 40,
-      width: 40,
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
-          color: colors.lightColor,
-          boxShadow: const [BoxShadow(blurRadius: 3.0, color: Colors.black)]),
-      child: const Icon(
-        Icons.access_alarm_rounded,
-        color: colors.tertiaryColor,
-      ),
-    );
-  }
-
-  Widget _buildTimeColumn() {
-    return Expanded(
-        child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [_buildTimeText(), _buildTime()],
-    ));
-  }
-
-  Widget _buildTimeText() {
-    return const Text(
-      "Time",
-      style: TextStyle(
-        fontSize: 13,
-        fontWeight: FontWeight.w500,
-        color: colors.secondaryColor,
-      ),
-    );
-  }
-
-  Widget _buildTime() {
-    return Text(
-      taskModel.startTime.toString().isNotEmpty &&
-              taskModel.endTime.toString().isNotEmpty
-          ? "${taskModel.startTime.toString()} - ${taskModel.endTime.toString()}"
-          : "No set a time",
       style: const TextStyle(
         fontSize: 14,
         fontWeight: FontWeight.w500,

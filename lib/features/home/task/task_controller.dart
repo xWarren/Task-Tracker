@@ -20,22 +20,13 @@ class TaskController extends GetxController {
   TextEditingController titleController = TextEditingController();
   TextEditingController noteController = TextEditingController();
   TextEditingController dateController = TextEditingController();
-  TextEditingController startTimeController = TextEditingController();
-  TextEditingController endTimeController = TextEditingController();
   TextEditingController repeatController = TextEditingController();
   Rx<DateTime> selectedDate = DateTime.now().obs;
   Rx<DateTime> dateToday = Rx<DateTime>(DateTime.now());
-  RxInt remindDefault = 5.obs;
   var repeatDefault = 'None';
 
   var taskList = <TaskModel>[].obs;
 
-  List<int> remind = [
-    5,
-    10,
-    15,
-    20,
-  ];
   List<String> repeat = [
     "None",
     "Daily",
@@ -53,8 +44,6 @@ class TaskController extends GetxController {
     titleController.clear();
     noteController.clear();
     dateController.clear();
-    startTimeController.clear();
-    endTimeController.clear();
     repeatDefault.obs;
     selectedColor.obs;
     Get.back();
@@ -94,9 +83,6 @@ class TaskController extends GetxController {
       title: titleController.text,
       note: noteController.text,
       date: dateController.text,
-      startTime: startTimeController.text,
-      endTime: endTimeController.text,
-      remind: remindDefault.value,
       repeat: repeatDefault,
       color: selectedColor.value,
       isCompleted: 0,

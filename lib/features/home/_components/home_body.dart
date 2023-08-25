@@ -229,7 +229,7 @@ class HomeBody extends StatelessWidget {
               },
               child: Container(
                 padding: const EdgeInsets.symmetric(horizontal: 10),
-                width: Get.width,
+                width: Get.width / 1.5,
                 margin: const EdgeInsets.only(bottom: 20),
                 child: Container(
                   padding: const EdgeInsets.all(16),
@@ -268,20 +268,6 @@ class HomeBody extends StatelessWidget {
                           ),
                         ],
                       )),
-                      Container(
-                        margin: const EdgeInsets.symmetric(horizontal: 10),
-                        height: 30,
-                        color: Colors.grey[200],
-                      ),
-                      RotatedBox(
-                        quarterTurns: 3,
-                        child: Text(
-                          task.isCompleted == 1
-                              ? strings.homeCompleted
-                              : strings.homeTodo,
-                          style: CustomStyle.homeCompletedStyle,
-                        ),
-                      )
                     ],
                   ),
                 ),
@@ -368,7 +354,7 @@ class HomeBody extends StatelessWidget {
                 },
                 child: Container(
                   padding: const EdgeInsets.symmetric(horizontal: 10),
-                  width: Get.width,
+                  width: Get.width / 1.5,
                   margin: const EdgeInsets.only(bottom: 20),
                   child: Container(
                     padding: const EdgeInsets.all(16),
@@ -407,20 +393,6 @@ class HomeBody extends StatelessWidget {
                             ),
                           ],
                         )),
-                        Container(
-                          margin: const EdgeInsets.symmetric(horizontal: 10),
-                          height: 30,
-                          color: Colors.grey[200],
-                        ),
-                        RotatedBox(
-                          quarterTurns: 3,
-                          child: Text(
-                            task.isCompleted == 1
-                                ? strings.homeCompleted
-                                : strings.homeTodo,
-                            style: CustomStyle.homeCompletedStyle,
-                          ),
-                        )
                       ],
                     ),
                   ),
